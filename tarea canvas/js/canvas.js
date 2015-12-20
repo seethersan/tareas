@@ -2,6 +2,13 @@ var dibujo;
 var canvas;
 var grilla, diagonal, circulos, clear;
 var numero, n;
+//funcion aleatorio obtenida de http://www.desarrolloweb.com/articulos/2005.php
+function aleatorio(inferior,superior){ 
+   numPosibilidades = superior - inferior 
+   aleat = Math.random() * numPosibilidades 
+   aleat = Math.floor(aleat) 
+   return parseInt(inferior) + aleat 
+}
 function dibujarGrilla(canvas,width,height)
 {
 	numero = document.getElementById("lineas");
@@ -9,8 +16,8 @@ function dibujarGrilla(canvas,width,height)
 	var linea;
 	for (linea = 0; linea <= lineas; linea++)
 	{
-		var ancho = width/lineas
-		var largo = height/lineas
+		var ancho = width/lineas;
+		var largo = height/lineas;
 		canvas.beginPath();
 		canvas.strokeStyle = "#AAA";
 		canvas.moveTo(ancho * linea , 0);
@@ -31,8 +38,8 @@ function dibujarDiagonal(canvas,width,height)
 	var linea;
 	for (linea = 0; linea <= lineas; linea++)
 	{
-		var ancho = width/lineas
-		var largo = height/lineas
+		var ancho = width/lineas;
+		var largo = height/lineas;
 		canvas.beginPath();
 		canvas.strokeStyle = "#AAA";
 		canvas.moveTo(ancho * linea * 2 , 300);
@@ -51,17 +58,26 @@ function dibujarCirculos(canvas,width,height)
 	numero = document.getElementById("lineas");
 	var cantidad = Number(numero.value);
 	var linea;
-	for (linea = 0; linea <= cantidad; linea++)
+	for (linea = cantidad; linea >= 0; linea--)
 	{
-		var ancho = width/cantidad
-		var largo = height/cantidad
+		//obtener color RGB aleatorio, codigo obtenido de http://www.desarrolloweb.com/articulos/2005.php
+		hexadecimal = new Array("0","1","2","3","4","5","6","7","8","9","A","B","C","D","E","F") 
+		color_aleatorio = "#"; 
+		for (i=0;i<6;i++){ 
+		   posarray = aleatorio(0,hexadecimal.length) 
+		   color_aleatorio += hexadecimal[posarray] 
+		}
+		var ancho = width/cantidad;
+		var largo = height/cantidad;
+		canvas.fillStyle = color_aleatorio;
 		canvas.beginPath();
-		context.strokeStyle = "#00f";
-		context.arc(width/2,height/2,linea*ancho/2,Math.PI*2,false);
-		context.closePath();
-		context.stroke();
+		canvas.strokeStyle = color_aleatorio;
+		canvas.arc(width/2,height/2,linea*ancho/2,Math.PI*2,false);
+		canvas.closePath();
+		canvas.fill();
 	}
 }
+//limpiar canvas
 function limpiar(canvas, iniciox, inicioy, width, height)
 {
 	canvas.clearRect(iniciox, inicioy, width, height);
