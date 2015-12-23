@@ -33,6 +33,11 @@ var Ahorcado = function(contexto){
 }
 Ahorcado.prototype.dibujar = function() {
 	var dibujo = this.context;
+	if (this.vivo == false)
+	{
+		var solucion = document.getElementById("palabra");
+		solucion.innerText = palabra;
+	}
 	if (fondo.imageOK)
 	{
 		dibujo.drawImage(fondo.image, 0, 0);
@@ -117,7 +122,7 @@ Ahorcado.prototype.trazar = function(){
 	{
 		this.vivo = false;
 		alert("Estás muerto muajajajaja!");
-		letra.disabled = vivo;
+		letra.disabled = hombre.vivo;
 	}
 	this.dibujar();
 }
@@ -152,12 +157,31 @@ function mandarLetra()
 					resultado.innerText = resulstr;
 				}
 			}
+			letra.value = "";
 		}
 		if (hombre.fallo)
 		{
 			hombre.trazar();
 		}
 	}
+}
+function guiones(word)
+{
+	var palastr = "";
+	var array = [];
+	array = word.split("");
+	for (f = 0; f < (array.length * 2 - 1); f++)
+	{
+		if ((f % 2) == 0)
+		{
+			palastr = palastr + "_";
+		}
+		else
+		{
+			palastr = palastr + " ";
+		}
+	}
+	resultado.innerText = palastr;
 }
 function inicio()
 {
@@ -188,4 +212,5 @@ function inicio()
 	simpsom.piernas = new Image();
 	simpsom.piernas.src = simpsom.piernasURL;
 	simpsom.piernas.onload = confirmarPiernas;
+	guiones(palabra);
 }
