@@ -122,7 +122,7 @@ Ahorcado.prototype.trazar = function(){
 	{
 		this.vivo = false;
 		alert("Estás muerto muajajajaja!");
-		letra.disabled = hombre.vivo;
+		letra.disabled = !hombre.vivo;
 	}
 	this.dibujar();
 }
